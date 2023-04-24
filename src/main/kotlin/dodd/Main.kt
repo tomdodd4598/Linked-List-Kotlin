@@ -6,32 +6,25 @@ import java.util.regex.Pattern
 val VALID_REGEX: Pattern = Pattern.compile("^(0|-?[1-9][0-9]*|[A-Za-z][0-9A-Z_a-z]*)$")
 val NUMBER_REGEX: Pattern = Pattern.compile("^-?[0-9]+$")
 
-fun isValidString(str: String): Boolean {
-	return VALID_REGEX.matcher(str).matches()
-}
+fun isValidString(str: String) = VALID_REGEX.matcher(str).matches()
 
-fun isNumberString(str: String): Boolean {
-	return NUMBER_REGEX.matcher(str).matches()
-}
+fun isNumberString(str: String) = NUMBER_REGEX.matcher(str).matches()
 
-fun insertBefore(value: String, oth: Item<String>): Boolean {
-	return if (isNumberString(value) && isNumberString(oth.value)) {
-		BigInteger(value) <= BigInteger(oth.value)
+fun insertBefore(value: String, item: Item<String>): Boolean {
+	return if (isNumberString(value) && isNumberString(item.value)) {
+		BigInteger(value) <= BigInteger(item.value)
 	}
 	else {
-		value <= oth.value
+		value <= item.value
 	}
 }
 
-fun valueEquals(item: Item<String>, value: String): Boolean {
-	return item.value == value
-}
+fun valueEquals(item: Item<String>, value: String) = item.value == value
 
 fun main() {
 	var start: Item<String>? = null
 	
 	var begin = true
-	var read: String?
 	
 	while (true) {
 		if (!begin) {
@@ -42,7 +35,7 @@ fun main() {
 		}
 		
 		println("Awaiting input...")
-		read = readLine()
+		val read = readLine()
 		if (read == null) {
 			println("Failed to read line!\n")
 		}
@@ -70,8 +63,8 @@ fun main() {
 			}
 		}
 		else if (input == "l") {
-			println("\nList print...")
-			printList(start)
+			println("\nLoop print...")
+			printLoop(start)
 		}
 		else if (input == "i") {
 			println("\nIterator print...")

@@ -1,7 +1,6 @@
 package dodd
 
 fun <T> insertItem(start: Item<T>?, value: T, insertBefore: (T, Item<T>) -> Boolean): Item<T>? {
-	println("Creating item: $value")
 	var head = start
 	
 	var current = head
@@ -49,11 +48,9 @@ fun <T> removeItem(start: Item<T>?, value: T, valueEquals: (Item<T>, T) -> Boole
 	return head
 }
 
-fun <T> removeAll(@Suppress("UNUSED_PARAMETER") start: Item<T>?): Item<T>? {
-	return null
-}
+fun <T> removeAll(@Suppress("UNUSED_PARAMETER") start: Item<T>?) = null
 
-fun <T> printList(start: Item<T>?) {
+fun <T> printLoop(start: Item<T>?) {
 	var item = start
 	while (item != null) {
 		item = item.printGetNext()
@@ -96,5 +93,5 @@ fun <T> printFoldback(start: Item<T>?) {
 	val fSome = { current: Item<T>, _: Item<T>, innerVal: String -> "${current.value}, $innerVal" }
 	val fLast = { current: Item<T> -> "${current.value}\n" }
 	val fEmpty = { "" }
-	print(itemFoldback(fSome, fLast, fEmpty, { x -> x }, start))
+	print(itemFoldback(fSome, fLast, fEmpty, { it }, start))
 }
